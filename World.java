@@ -7,6 +7,7 @@ package blobbygame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import java.util.Timer;
@@ -19,9 +20,11 @@ import java.util.TimerTask;
 public class World extends JPanel {
     
     private Timer timer;
+    private Player player;
 
     public World() {
         super();
+        player = new Player(800, 600);
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 100, 1000/12);
     }
@@ -30,6 +33,19 @@ public class World extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.setBackground(Color.BLACK);
+        player.draw(g);
+//        int counter = 0;
+//        while(counter < 20) {
+//            if (counter % 3 == 0) {
+//                g.setColor(Color.RED);
+//            }
+//            else {
+//                g.setColor(Color.GREEN);
+//            }
+//            
+//            g.fillRect(30*counter,30*counter,25,25);
+//            counter++;
+//        }
     }
 
     private class ScheduleTask extends TimerTask {
