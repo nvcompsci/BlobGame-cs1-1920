@@ -15,15 +15,17 @@ import java.awt.Rectangle;
  * @author jword
  */
 public class Player {
-    private int height, width, x, y, hp, xp, score;
+    private int height, width, x, y, vx, vy, hp, xp, score;
     private Rectangle bounds;
     private Color color;
-    private final int SPEED = 5;
+    private final int SPEED = 15;
     
     //Constructor
     public Player(int cWidth, int cHeight) {
         this.x = cWidth / 2;
         this.y = cHeight / 2;
+        this.vx = 0;
+        this.vy = 0;
         this.width = 50;
         this.height = 50;
         this.hp = 100;
@@ -36,13 +38,13 @@ public class Player {
     //Methods
     public void move(String direction) {        
         if (direction.equals("right"))
-            x += SPEED;
+            vx = SPEED;
         else if (direction.equals("left"))
-            x -= SPEED;
+            vx = -SPEED;
         else if (direction.equals("up"))
-            y -= SPEED;
+            vy = -SPEED;
         else if (direction.equals("down"))
-            y += SPEED;
+            vy = SPEED;
     }
     
     public void draw(Graphics g) {
@@ -60,6 +62,13 @@ public class Player {
     }
     
     public void update() {
-        
+        this.x += vx;
+        this.y += vy;
+        this.bounds = new Rectangle(this.x, this.y, this.width, this.height);
+    }
+
+    public void stop() {
+        this.vx = 0;
+        this.vy = 0;
     }
 }

@@ -52,40 +52,42 @@ public class World extends JPanel {
 
         @Override
         public void run() {         
+            player.update();
             repaint();
         }
     }
 
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            
+            player.move("right");
+            System.out.println("right");
         }
         else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            
+            player.move("left");
         }
         else if (e.getKeyCode() == KeyEvent.VK_UP) {
-            
+            player.move("up");
         }
         else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            
+            player.move("down");
         }
     }
 
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            
+            player.stop();
         }
             
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            
+            player.stop();
         }
             
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            
+            player.stop();
         }
             
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            
+            player.stop();
         }
             
     }
