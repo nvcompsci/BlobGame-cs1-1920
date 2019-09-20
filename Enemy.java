@@ -14,31 +14,27 @@ import java.awt.Rectangle;
  *
  * @author jword
  */
-public class Player {
-    private int height, width, x, y, vx, vy, hp, xp, score;
+public class Enemy {
+    private int height, width, x, y, vx, vy, hp;
     private Rectangle bounds;
     private Color color;
     private final int SPEED = 15;
     
     //Constructor
-    public Player(int cWidth, int cHeight) {
-        this.x = cWidth / 2;
-        this.y = cHeight / 2;
-        this.vx = 0;
+    public Enemy(int cWidth, int cHeight) {
+        this.x = cWidth;
+        this.y = (int)(Math.random()*cHeight);
+        this.vx = -SPEED;
         this.vy = 0;
-        this.width = 50;
-        this.height = 50;
-        this.hp = 100;
-        this.xp = 0;
-        this.score = 0;
-        this.color = Color.CYAN;
+        this.width = 30;
+        this.height = 30;
+        this.hp = 30;
+        this.color = Color.RED;
         this.bounds = new Rectangle(this.x, this.y, this.width, this.height);
     }
-
     public Rectangle getBounds() {
         return bounds;
     }
-    
     //Methods
     public void move(String direction) {        
         if (direction.equals("right"))
@@ -54,7 +50,8 @@ public class Player {
     public void draw(Graphics g) {
         g.setColor(this.color);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.fill(bounds);
+        g2d.draw(bounds);
+        g.fillOval(x, y, width, height);
     }
     
     public void attack() {

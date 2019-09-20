@@ -21,10 +21,12 @@ public class World extends JPanel {
     
     private Timer timer;
     private Player player;
+    private Enemy enemy;
 
     public World() {
         super();
         player = new Player(800, 600);
+        enemy = new Enemy(800, 600);
         timer = new Timer();
         timer.scheduleAtFixedRate(new ScheduleTask(), 100, 1000/12);
     }
@@ -33,6 +35,7 @@ public class World extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.setBackground(Color.BLACK);
+        enemy.draw(g);
         player.draw(g);
 //        int counter = 0;
 //        while(counter < 20) {
@@ -51,9 +54,21 @@ public class World extends JPanel {
     private class ScheduleTask extends TimerTask {
 
         @Override
-        public void run() {         
+        public void run() {
+            
+            enemy.update();
             player.update();
+            checkCollisions();
             repaint();
+        }
+    }
+    
+    private void checkCollisions() {
+        if (player.getBounds().intersects(enemy.getBounds())) {
+            System.out.println("collision!");
+        }
+        else {
+            
         }
     }
 
