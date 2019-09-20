@@ -35,8 +35,8 @@ public class World extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.setBackground(Color.BLACK);
-        enemy.draw(g);
-        player.draw(g);
+        if (enemy.isAlive()) enemy.draw(g);
+        if (player.isAlive()) player.draw(g);
 //        int counter = 0;
 //        while(counter < 20) {
 //            if (counter % 3 == 0) {
@@ -65,6 +65,14 @@ public class World extends JPanel {
     
     private void checkCollisions() {
         if (player.getBounds().intersects(enemy.getBounds())) {
+            if (player.getVy() > 0) {
+                System.out.println("kill enemy");
+                enemy.die();
+            }
+            else {
+                player.die();
+                //System.exit(0);
+            }
             System.out.println("collision!");
         }
         else {

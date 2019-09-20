@@ -18,10 +18,12 @@ public class Enemy {
     private int height, width, x, y, vx, vy, hp;
     private Rectangle bounds;
     private Color color;
-    private final int SPEED = 15;
+    private final int SPEED = 7;
+    private boolean alive;
     
     //Constructor
     public Enemy(int cWidth, int cHeight) {
+        this.alive = true;
         this.x = cWidth;
         this.y = (int)(Math.random()*cHeight);
         this.vx = -SPEED;
@@ -35,7 +37,13 @@ public class Enemy {
     public Rectangle getBounds() {
         return bounds;
     }
+    public boolean isAlive() {
+        return alive;
+    }
     //Methods
+    public void die() {
+        this.alive = false;
+    }
     public void move(String direction) {        
         if (direction.equals("right"))
             vx = SPEED;

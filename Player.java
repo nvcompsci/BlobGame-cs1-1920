@@ -19,9 +19,11 @@ public class Player {
     private Rectangle bounds;
     private Color color;
     private final int SPEED = 15;
+    private boolean alive;
     
     //Constructor
     public Player(int cWidth, int cHeight) {
+        this.alive = true;
         this.x = cWidth / 2;
         this.y = cHeight / 2;
         this.vx = 0;
@@ -35,11 +37,23 @@ public class Player {
         this.bounds = new Rectangle(this.x, this.y, this.width, this.height);
     }
 
+    public int getVy() {
+        return vy;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
     public Rectangle getBounds() {
         return bounds;
     }
     
     //Methods
+    public void die() {
+        this.alive = false;
+    }
+    
     public void move(String direction) {        
         if (direction.equals("right"))
             vx = SPEED;
