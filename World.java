@@ -63,6 +63,9 @@ public class World extends JPanel {
             boundaries();
             enemy.update();
             player.update();
+            for (Missile missile : missiles) {
+                missile.update();
+            }
             checkCollisions();
             repaint();
         }

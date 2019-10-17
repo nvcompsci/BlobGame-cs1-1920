@@ -7,6 +7,7 @@ package blobbygame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
@@ -18,6 +19,7 @@ public class Missile {
     private boolean alive;
     private final int SPEED = 7;
     private final Color COLOR = Color.WHITE;
+    private Rectangle bounds;
     
     //Constructor
     public Missile(int x, int y) {
@@ -27,6 +29,12 @@ public class Missile {
         this.height = 2;
         this.vx = SPEED;
         this.vy = 0;
+    }
+    
+    public void update() {
+        this.x += vx;
+        this.y += vy;
+        this.bounds = new Rectangle(this.x, this.y, this.width, this.height);
     }
     
     public void draw(Graphics g) {
