@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,6 +23,7 @@ public class World extends JPanel {
     private Timer timer;
     private Player player;
     private Enemy enemy;
+    private ArrayList<Missile> missiles = new ArrayList<>();
 
     public World() {
         super();
@@ -37,6 +39,9 @@ public class World extends JPanel {
         this.setBackground(Color.BLACK);
         if (enemy.isAlive()) enemy.draw(g);
         if (player.isAlive()) player.draw(g);
+        for (Missile missile : missiles) {
+            missile.draw(g);
+        }
 //        int counter = 0;
 //        while(counter < 20) {
 //            if (counter % 3 == 0) {
@@ -55,7 +60,7 @@ public class World extends JPanel {
 
         @Override
         public void run() {
-            
+            boundaries();
             enemy.update();
             player.update();
             checkCollisions();
@@ -63,8 +68,12 @@ public class World extends JPanel {
         }
     }
     
+    private void boundaries() {        
+        
+    }
+    
     private void checkCollisions() {
-        if (player.getBounds().intersects(enemy.getBounds())) {
+        if (enemy.isAlive() && player.getBounds().intersects(enemy.getBounds())) {
             if (player.getVy() > 0) {
                 System.out.println("kill enemy");
                 enemy.die();
@@ -111,6 +120,10 @@ public class World extends JPanel {
             
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             player.stop();
+        }
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {            
+            Missile temp = new Missile(player.getX(),player.getY());
+            missiles.add(temp);
         }
             
     }

@@ -8,7 +8,9 @@ package blobbygame;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -20,6 +22,8 @@ public class Player {
     private Color color;
     private final int SPEED = 15;
     private boolean alive;
+    private Image img;
+    private ImageIcon ii;
     
     //Constructor
     public Player(int cWidth, int cHeight) {
@@ -34,7 +38,17 @@ public class Player {
         this.xp = 0;
         this.score = 0;
         this.color = Color.CYAN;
+        this.ii = new ImageIcon(getClass().getResource("player.png"));
+                                    this.img = ii.getImage();
         this.bounds = new Rectangle(this.x, this.y, this.width, this.height);
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 
     public int getVy() {
@@ -66,9 +80,8 @@ public class Player {
     }
     
     public void draw(Graphics g) {
-        g.setColor(this.color);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.fill(bounds);
+        g.drawImage(img, this.x, this.y,
+                this.width, this.height, null);
     }
     
     public void attack() {
