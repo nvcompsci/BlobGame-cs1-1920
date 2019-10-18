@@ -16,7 +16,7 @@ import java.awt.Rectangle;
 public class Missile {
     //Fields
     private int x, y, vx, vy, width, height;
-    private boolean alive;
+    private boolean alive = true;
     private final int SPEED = 7;
     private final Color COLOR = Color.WHITE;
     private Rectangle bounds;
@@ -34,6 +34,18 @@ public class Missile {
     public Rectangle getBounds() {
         return bounds;
     }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void die() {
+        this.alive = false;
+        this.vx = 0;
+        this.vy = 0;
+    }
+    
+    
     
     public void update() {
         this.x += vx;

@@ -41,8 +41,9 @@ public class World extends JPanel {
         if (enemy.isAlive()) enemy.draw(g);
         if (player.isAlive()) player.draw(g);
         for (Missile missile : missiles) {
-            if (missile != null)
-                missile.draw(g);
+            if (missile == null || !missile.isAlive())
+                continue; 
+            missile.draw(g);
         }
 //        int counter = 0;
 //        while(counter < 20) {
@@ -67,11 +68,11 @@ public class World extends JPanel {
             player.update();
             try {
             for (Missile missile : missiles) {
-                if (missile != null) {
-                    
+                if (missile == null || !missile.isAlive()) 
+                    continue;
                 missile.update();
                 missileVsEnemy(missile);
-                }
+                
             }
             }
             catch (ConcurrentModificationException err) {
@@ -86,7 +87,7 @@ public class World extends JPanel {
         if (enemy.isAlive() && missile.getBounds().intersects(enemy.getBounds())) {
             
             enemy.die();
-            missiles.remove(missile);
+            missile.die();
         }
     }
     
