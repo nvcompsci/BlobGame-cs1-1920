@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import javax.swing.JPanel;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,7 +41,8 @@ public class World extends JPanel {
         if (enemy.isAlive()) enemy.draw(g);
         if (player.isAlive()) player.draw(g);
         for (Missile missile : missiles) {
-            missile.draw(g);
+            if (missile != null)
+                missile.draw(g);
         }
 //        int counter = 0;
 //        while(counter < 20) {
@@ -63,11 +65,28 @@ public class World extends JPanel {
             boundaries();
             enemy.update();
             player.update();
+            try {
             for (Missile missile : missiles) {
+                if (missile != null) {
+                    
                 missile.update();
+                missileVsEnemy(missile);
+                }
+            }
+            }
+            catch (ConcurrentModificationException err) {
+                
             }
             checkCollisions();
             repaint();
+        }
+    }
+    
+    private void missileVsEnemy(Missile missile) {
+        if (enemy.isAlive() && missile.getBounds().intersects(enemy.getBounds())) {
+            
+            enemy.die();
+            missiles.remove(missile);
         }
     }
     

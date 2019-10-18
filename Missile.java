@@ -30,6 +30,10 @@ public class Missile {
         this.vx = SPEED;
         this.vy = 0;
     }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
     
     public void update() {
         this.x += vx;
